@@ -35,12 +35,15 @@ ENV CONFIG "\
 	--with-mail \
 	--with-mail_ssl_module \
 	--with-file-aio \
-    --with-http_spdy_module \
+        --with-http_spdy_module \
 	--with-ipv6 \
 	--add-module=/tmp/nginx-sticky-module-ng\
 	"
-RUN cd /tmp &&  apk add --no-cache git\
-	git clone https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng.git &&  cd ..\
+RUN apk update
+RUN apk upgrade
+RUN apk add git
+RUN cd /tmp && \
+	git clone https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng.git &&  cd ..
 RUN \
 	addgroup -S nginx \
 	&& adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx \
@@ -60,7 +63,6 @@ RUN \
 	&& mkdir -p /usr/src \
 	&& tar -zxC /usr/src -f nginx.tar.gz \
 	&& rm nginx.tar.gz* \
-    && rm -r /root/.gnupg \
 	&& cd /usr/src/nginx-$NGINX_VERSION \
 	&& ./configure $CONFIG --with-debug \
 	&& make \
