@@ -64,6 +64,9 @@ RUN \
 		pcre-dev \
 		zlib-dev \
 		linux-headers \
+		libxml2-dev \
+		libxslt-dev \
+		gd-dev \
 		curl \
 		gnupg \
 
