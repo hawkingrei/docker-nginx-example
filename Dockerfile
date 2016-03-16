@@ -7,6 +7,7 @@ ENV NGINX_VERSION 1.9.12
 ENV CONFIG "\
 	--prefix=/etc/nginx \
 	--sbin-path=/usr/sbin/nginx \
+	--modules-path=/usr/lib/nginx/modules \
 	--conf-path=/etc/nginx/nginx.conf \
 	--error-log-path=/var/log/nginx/error.log \
 	--http-log-path=/var/log/nginx/access.log \
@@ -32,10 +33,17 @@ ENV CONFIG "\
 	--with-http_secure_link_module \
 	--with-http_stub_status_module \
 	--with-http_auth_request_module \
+	--with-http_xslt_module=dynamic \
+	--with-http_image_filter_module=dynamic \
+	--with-http_geoip_module=dynamic \
+	--with-threads \
+	--with-stream \
+	--with-stream_ssl_module \
+	--with-http_slice_module \
 	--with-mail \
 	--with-mail_ssl_module \
 	--with-file-aio \
-        --with-http_spdy_module \
+	--with-http_v2_module \
 	--with-ipv6 \
 	--add-module=/tmp/nginx-sticky-module-ng\
 	"
