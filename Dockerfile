@@ -46,12 +46,15 @@ ENV CONFIG "\
 	--with-http_v2_module \
 	--with-ipv6 \
 	--add-module=/tmp/nginx-sticky-module-ng\
+	--add-module=/tmp/nginx_upstream_check_module\
 	"
 RUN apk update
 RUN apk upgrade
 RUN apk add git
 RUN cd /tmp && \
-	git clone https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng.git &&  cd ..
+	git clone https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng.git &&  \
+	git clone https://github.com/yaoweibin/nginx_upstream_check_module.git &&  \
+	ls && cd  ..
 RUN \
 	addgroup -S nginx \
 	&& adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx \
@@ -68,7 +71,7 @@ RUN \
 		libxslt-dev \
 		gd-dev \
 		curl \
-		gnupg \
+		
 
 	&& curl -fSL http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz -o nginx.tar.gz \
 	&& mkdir -p /usr/src \
